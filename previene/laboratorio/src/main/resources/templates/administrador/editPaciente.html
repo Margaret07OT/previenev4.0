@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title th:text="${titulo}">Administrador</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <link rel="stylesheet" th:href="@{/css/Admin.css}">
+    <link rel="stylesheet" th:href="@{/css/profilecard.css}">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"/>
+</head>
+<body>
+    <nav>
+        <div class="logo-name">
+             <span class="logo_name">Previene</span>
+        </div>
+
+     
+		<div class="menu-items">
+			<ul class="nav-links">
+				<li><a th:href="@{/administrador/index}"> <i
+						class="uil uil-estate"></i> <span class="link-name">INICIO</span>
+				</a></li>
+               
+				<li><a th:href="@{/administrador/listarPaciente}"> <i
+						class="uil uil-files-landscapes"></i> <span class="link-name">PACIENTES</span>
+				</a></li>
+            
+            <li><a th:href="@{/administrador/listarTecnologo}"> <i
+                class="uil uil-files-landscapes"></i> <span class="link-name">TECNOLOGO</span>
+            </a></li>
+			<li><a th:href="@{/administrador/listarCita}"> <i
+                class="uil uil-calender"></i> <span class="link-name">CITAS</span>
+            </a></li>
+			<li><a th:href="@{/administrador/listarArea}"> <i
+                class="uil uil-calender"></i> <span class="link-name">AREAS</span>
+            </a></li>
+			<li><a th:href="@{/administrador/listarAnalisis}"> <i
+                class="uil uil-calender"></i> <span class="link-name">ANALISIS</span>
+            </a></li>
+			</ul>
+
+			<ul class="logout-mode">
+				<li><a th:href="@{/login/cerrar}"> <i
+						class="uil uil-signout"></i> <span class="link-name">CERRAR SESIÓN</span>
+				</a></li>
+			</ul>
+		</div>
+	</nav>
+    <section class="dashboard" >
+		<br>
+		<div class="container">
+			<div class="row" >
+				<div class="col-md-12">
+					<h4>Modificacion del Paciente</h4>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-4">
+					<hr>
+				</div>
+				<div class="col-md-3 text-center">
+					<h5>Información Personal</h5>
+				</div>
+				<div class="col-md-5">
+					<hr>
+				</div>
+			</div>
+		</div>
+		<br>
+		<form th:object="${paciente}" th:action="@{/administrador/editPaciente}" method="post">
+		 <div class="container">
+			<div class="row">
+				<div class="col-md-7">
+					<div class="row">
+					   <div class="col-md-4">
+				  	     <label for="nombres" class="col-form-label">Nombre Completo:</label>
+					   </div>
+					   <div class="col-md-6">
+				  	      <input id="nombres" type="text" class="form-control form-control-xs" th:field="*{nombres}" th:errorclass="is-invalid">
+						  <div th:if="${#fields.hasErrors('nombres')}" th:errors="*{nombres}" class="invalid-feedback"></div>
+					   </div>
+					</div>
+				</div>
+				
+				<div class="col-md-5">
+					<div class="row">
+						<div class="col-md-2">
+						  <label for="dni" class="col-form-label">DNI:</label>
+						</div>
+						<div class="col-md-7">
+						  <input type="text" id="dni" class="form-control form-control-xs" th:field="*{dni}" th:errorclass="is-invalid">
+						  <div th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}" class="invalid-feedback"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-7">
+					<div class="row">
+					   <div class="col-md-4">
+				  	     <label for="apellidos" class="col-form-label">Apellido Completo:</label>
+					   </div>
+					   <div class="col-md-6">
+				  	      <input type="text" id="apellidos" class="form-control form-control-xs" th:field="*{apellidos}" th:errorclass="is-invalid">
+						  <div th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}" class="invalid-feedback"></div>
+					   </div>
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="row">
+						<div class="col-md-3">
+							<label class="col-form-label">Genero:</label>
+						</div>
+						<div class="col-md-4">
+							<label for="sexoM" class="col-form-label">Hombre&nbsp;</label>
+							<input type="radio" id="sexoM" th:field="*{sexo}" value="M">
+						</div>
+						<div class="col-md-4">
+							<label for="sexoF" class="col-form-label">Mujer&nbsp;</label>
+							<input type="radio" id="sexoF" th:field="*{sexo}" value="F">
+						</div>
+							<div th:if="${#fields.hasErrors('sexo')}" th:errors="*{sexo}" class="text-center text-danger"></div>
+					 	</div>
+				</div>
+				<div class="col-md-5" >
+					<div class="row">
+						<div class="col-md-6">
+							<label class="col-form-label" for="fecha">Fecha de Nacimiento:</label>
+						</div>
+						<div class="col-md-6">
+							<input type="date" class="form-control form-control-xs" id="fecha" th:field="*{fecnac}" th:errorclass="is-invalid">
+							<div th:if="${#fields.hasErrors('fecnac')}" th:errors="*{fecnac}" class="invalid-feedback"></div>
+						</div>
+					</div>	
+				</div>
+				<div class="col-md-3">
+					<div class="row">
+						<div class="col-md-3">
+							<label class="col-form-label" for="celular">Celular:</label>
+						</div>
+						<div class="col-md-9">
+							<input type="text" id="celular" class="form-control form-control-xs" th:field="*{celular}" th:errorclass="is-invalid">
+							<div th:if="${#fields.hasErrors('celular')}" th:errors="*{celular}" class="invalid-feedback"></div>
+						</div>
+					</div>	
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-1">
+					<label class="col-form-label" for="direccion">Dirección:</label>
+				</div>
+				<div class="col-md-4">
+					<input type="text" class="form-control form-control-xs" id="direccion" th:field="*{direccion}" th:errorclass="is-invalid">
+					<div th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}" class="invalid-feedback"></div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-1">
+					<label class="col-form-label" for="email">Email:</label>
+				</div>
+				<div class="col-md-4">
+					<input type="email" id="email" class="form-control form-control-xs" th:field="*{email}" th:errorclass="is-invalid">
+					<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="invalid-feedback"></div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-4">
+					<hr>
+				</div>
+				<div class="col-md-3 text-center">
+					<h5>Antecedentes Médicos</h5>
+				</div>
+				<div class="col-md-5">
+					<hr>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-3">
+					<label class="col-form-label">¿Toma algun medicamento?</label>
+				</div>
+				<div class="col-md-1">
+					<label class="col-form-label" for="siM">Si&nbsp;</label>
+					<input type="radio" th:field="*{medicamento}" th:value="${'Si,'+med}" id="siM">
+				</div>
+				<div class="col-md-1">
+					<label class="col-form-label" for="noM">No&nbsp;</label>
+					<input type="radio"  th:field="*{medicamento}" th:value="${'No'}" id="noM">
+				</div>
+				<div class="col-md-2">
+					<label class="col-form-label"  id="campo-adicionalL1" for="campo-adicional1" style="display: none;">Si es Sí, ¿cuáles?</label>
+				</div>
+				<div class="col-md-4">
+					<input  type="text" class="form-control form-control-xs" id="campo-adicional1" style="display: none;" name="med" th:value="${med}">
+				</div>
+				<div class="col-md-6 text-center text-danger" th:if="${#fields.hasErrors('medicamento')}" th:errors="*{medicamento}" ></div>
+				<div th:if="${siMedVacio!=null}" class="col-md-6 text-center text-danger" th:text="${siMedVacio}"></div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-3">
+					<label class="col-form-label">¿Padece alguna enfermedad?</label>
+				</div>
+				<div class="col-md-1">
+					<label class="col-form-label" for="siE">Si&nbsp;</label>
+					<input type="radio" th:field="*{enfermedad}" th:value="${'Si,'+enf}" id="siE">
+				</div>
+				<div class="col-md-1">
+					<label class="col-form-label" for="noE">No&nbsp;</label>
+					<input type="radio"  th:field="*{enfermedad}" th:value="${'No'}" id="noE">
+				</div>
+				<div class="col-md-2">
+					<label class="col-form-label" id="campo-adicionalL2" for="campo-adicional2" style="display: none;">Si es Sí, ¿cuáles?</label>
+				</div>
+				<div class="col-md-4">
+					<input type="text" class="form-control form-control-xs" id="campo-adicional2" style="display: none;" name="enf" th:value="${enf}">
+				</div>
+				<div class="col-md-6 text-center text-danger" th:if="${#fields.hasErrors('enfermedad')}" th:errors="*{enfermedad}"></div>
+				<div th:if="${siEnfVacio!=null}" class="col-md-6 text-center text-danger" th:text="${siEnfVacio}"></div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-3">
+					<label class="col-form-label" id="campo-adicionalL" style="display: none;"  for="campo-adicional">Fecha de última menstruación:</label>
+				</div>
+				<div class="col-md-2">
+					<input type="date" id="campo-adicional" style="display: none;" class="form-control form-control-xs"  th:value="${mes}" name="menstruacion" >
+				</div>
+			</div>
+			<br>
+			<input type="hidden" th:field="*{fechaR}">
+			<input type="hidden" th:field="*{estado}">
+        	<input type="hidden" th:field="*{password}">
+        	<input type="hidden" th:field="*{rol}">
+			<div class="row">
+				<div class="col-md text-center">
+					<input type="submit" value="Guardar" class="btn btn-primary">
+				</div>
+			</div>
+		</div>
+		</form>
+		
+	</section>
+
+</body>
+<script th:src="@{/js/Admin.js}"></script>
+<script>
+const opciones = document.getElementsByName("sexo");
+const campoAdicional = document.getElementById("campo-adicional");
+const campoAdicionalL = document.getElementById("campo-adicionalL");
+
+if (opciones[1].checked) {
+  campoAdicional.style.display = "block";
+  campoAdicionalL.style.display = "block";
+}
+
+
+for (const opcion of opciones) {
+  opcion.addEventListener("change", function() {
+    if (opcion.value === "F") {
+      campoAdicional.style.display = "block";
+      campoAdicionalL.style.display = "block";
+    } else {
+      campoAdicional.style.display = "none";
+      campoAdicionalL.style.display = "none";
+    }
+  });
+}
+const opciones1 = document.getElementsByName("medicamento");
+const campoAdicional1 = document.getElementById("campo-adicional1");
+const campoAdicionalL1 = document.getElementById("campo-adicionalL1");
+
+
+if (opciones1[0].checked) {
+  campoAdicional1.style.display = "block";
+  campoAdicionalL1.style.display = "block";
+}
+
+for (const opcion of opciones1) {
+  opcion.addEventListener("change", function() {
+    if (opcion.value.includes("Si")) {
+      campoAdicional1.style.display = "block";
+      campoAdicionalL1.style.display = "block";
+    } else {
+      campoAdicional1.style.display = "none";
+      campoAdicionalL1.style.display = "none";
+    }
+  });
+}
+const opciones2 = document.getElementsByName("enfermedad");
+const campoAdicional2 = document.getElementById("campo-adicional2");
+const campoAdicionalL2 = document.getElementById("campo-adicionalL2");
+
+
+if (opciones2[0].checked) {
+  campoAdicional2.style.display = "block";
+  campoAdicionalL2.style.display = "block";
+}
+
+for (const opcion of opciones2) {
+  opcion.addEventListener("change", function() {
+    if (opcion.value.includes("Si")) {
+      campoAdicional2.style.display = "block";
+      campoAdicionalL2.style.display = "block";
+    } else {
+      campoAdicional2.style.display = "none";
+      campoAdicionalL2.style.display = "none";
+    }
+  });
+}
+</script>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!----======== CSS ======== -->
+<link rel="stylesheet" th:href="@{/css/Admin.css}">
+
+<!----===== Iconscout CSS ===== -->
+<link rel="stylesheet"
+	href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+<!--<title>Admin Dashboard Panel</title>-->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+</head>
+<body>
+	<nav>
+        <div class="logo-name">
+             <span class="logo_name">Previene</span>
+        </div>
+
+     
+		<div class="menu-items">
+			<ul class="nav-links">
+				<li><a th:href="@{/administrador/index}"> <i
+						class="uil uil-estate"></i> <span class="link-name">INICIO</span>
+				</a></li>
+               
+				<li><a th:href="@{/administrador/listarPaciente}"> <i
+						class="uil uil-files-landscapes"></i> <span class="link-name">PACIENTES</span>
+				</a></li>
+            
+            <li><a th:href="@{/administrador/listarTecnologo}"> <i
+                class="uil uil-files-landscapes"></i> <span class="link-name">TECNOLOGO</span>
+            </a></li>
+			<li><a th:href="@{/administrador/listarCita}"> <i
+                class="uil uil-calender"></i> <span class="link-name">CITAS</span>
+            </a></li>
+			<li><a th:href="@{/administrador/listarArea}"> <i
+                class="uil uil-calender"></i> <span class="link-name">AREAS</span>
+            </a></li>
+			<li><a th:href="@{/administrador/listarAnalisis}"> <i
+                class="uil uil-calender"></i> <span class="link-name">ANALISIS</span>
+            </a></li>
+			</ul>
+
+			<ul class="logout-mode">
+				<li><a th:href="@{/login/cerrar}"> <i
+						class="uil uil-signout"></i> <span class="link-name">CERRAR SESIÓN</span>
+				</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<section class="dashboard">
+		<div class="dash-content">
+			<h1>Citas</h1>
+			<div class="activity">
+				<div class="title">
+					<a class="btn btn-primary mb-3" th:href="@{/administrador/createCita}"> Nuevo Cita</a>
+					&nbsp;
+					<a class="btn btn-warning mb-3" th:href="@{/administrador/reporteCita}">REPORTE CITAS</a>
+				</div>	
+                <div class="activity-data" style="display: block; padding-left: 20px; padding-right: 20px">
+					<table id="table_id" class="display">
+						<thead>
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">DNI</th>
+								<th scope="col">NOMBRES Y APELLIDOS</th>
+								<th scope="col">FECHA</th>
+								<th scope="col">HORA</th>
+								<th scope="col" class="text-center">OPCIONES</th>
+								
+							
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="c:${citas}">
+								<td th:text="${c.id}"></td>
+								<td th:text="${c.paciente.dni}"></td>
+                                <td th:text="${c.paciente.nombres +' '+c.paciente.apellidos }"></td>
+								<td th:text="${c.fecha}"></td>
+								<td th:text="${c.hora}"></td>
+								<td class="text-center">
+									<a class="btn btn-success" th:if="${c.estado=='Pendiente'}" href="" data-toggle="modal" data-target="#staticBackdrop3" style="width: 130px;" th:data-valor="${c.id}" onclick="abrirModal()">Generar</a>
+									<a class="btn btn-primary" th:if="${c.estado=='Pendiente'}" th:href="@{/administrador/editCita/{id_cita} (id_cita=${c.id})}" style="width: 130px;">Reprogramar</a>
+									<a class="btn btn-danger" th:if="${c.estado=='Pendiente'}" th:onclick="eliminarCita([[${c.id}]])" style="width: 130px;">CANCELAR</a>
+									<a class="btn btn-dark"    th:if="${c.estado=='Pagado-Boleta'}" th:href="@{/administrador/verBoleta/{id_cita} (id_cita=${c.id})}" style="width: 130px;">Ver Boleta</a>
+									<a class="btn btn-dark"    th:if="${c.estado=='Pagado-Factura'}" th:href="@{/administrador/verFactura/{id_cita} (id_cita=${c.id})}" style="width: 130px;">Ver Factura</a>
+								</td>
+								
+                                <div class="modal fade" id="staticBackdrop3"
+								data-backdrop="static" data-keyboard="false" tabindex="-1"
+								aria-labelledby="staticBackdropLabel" aria-hidden="true">
+								<div class="modal-dialog" style="width: 600px">
+									<div class="modal-content"  style="width: 600px">
+										<div class="modal-header bg-dark text-white">
+											<h5 class="modal-title" id="staticBackdropLabel">Genera Comprobante</h5>
+											<button type="button" class="close text-white" data-dismiss="modal"
+												aria-label="Close" id="boton1">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											<br>
+											<br>
+											<h5 class="text-center">¿Que desea generar?</h5>
+											<br>
+											<form th:action="@{/administrador/generarComprobanteCita}" method="post" id="formulario">
+											<div class="container">
+												<div class="row">
+													<div class="col-md-6 text-center form-check">
+														<input class="form-check-input" type="radio" id="radio1"  name="comprobante" value="Boleta" onclick="desactivarCaja()" checked>
+														<label class="form-check-label" for="radio1">Boleta</label>
+													</div>
+													<br>
+													<br>
+													<div class="col-md-6 text-center form-check">
+														<input class="form-check-input" type="radio" id="radio2"  name="comprobante" value="Factura" onclick="activarCaja()">
+														<label class="form-check-label" for="radio2">Factura</label>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-2"></div>
+													<div class="col-md-1">
+														<label class="col-form-label" id="label" hidden="">RUC:</label>
+													</div>
+													<div class="col-md-6">
+														<input class="form-control form-control-xs" id="caja" hidden="" name="ruc">
+														<div class="text-danger" id="error"></div>
+													</div> 
+												</div>
+												<br>
+												<input type="hidden" id="dato" name="id_cita">
+												<div class="row">
+													<div class="col-md text-center">
+														<input type="submit" value="Guardar" class="btn btn-danger">
+													</div>
+												</div>
+											</div>
+											</form>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal" id="boton2">Cerrar</button>
+										</div>
+									</div>
+								</div>
+							    </div>
+								
+								
+								
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+	<script th:src="@{/js/popper.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/jquery-ui.min.js}"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script th:src="@{/js/funciones.js}"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+	<script>
+		const comprobante=document.getElementsByName("comprobante");
+		var ruc=document.getElementById("caja");
+
+		for(const c of comprobante){
+			c.addEventListener("change",function(){
+				if(c.value==="Boleta"){
+					document.getElementById("error").innerHTML="";
+				}
+			});
+		}
+
+		document.getElementById("formulario").addEventListener("submit", function(event) {
+		if(comprobante[1].checked){
+			if(ruc.value.trim().length!=11){
+				document.getElementById("error").innerHTML="El campo debe tener 11 digitos";
+				event.preventDefault();
+			}
+		}
+		});
+		
+		document.getElementById("boton1").addEventListener("click",function(){
+			document.getElementById("error").innerHTML="";
+			comprobante[0].checked=true;
+			document.getElementById('label').hidden=true;
+			document.getElementById('caja').hidden=true;
+			document.getElementById('caja').value="";
+			
+		});
+		document.getElementById("boton2").addEventListener("click",function(){
+			document.getElementById("error").innerHTML="";
+			comprobante[0].checked=true;
+			document.getElementById('label').hidden=true;
+			document.getElementById('caja').hidden=true;
+			document.getElementById('caja').value="";
+		});
+	</script>
+		<script>
+			function abrirModal() {
+			// Capturar el valor del atributo "data-valor" del enlace que se ha hecho clic
+  			var valor = event.target.getAttribute('data-valor');
+  
+ 			 // Asignar el valor capturado como valor por defecto del input del formulario dentro del modal
+ 			 document.getElementById("dato").value = valor;
+  
+ 			 // Mostrar el modal
+  			document.getElementById("staticBackdrop3").style.display = "block";
+			}
+			</script>
+		<script type="text/javascript">
+			function activarCaja(){
+				document.getElementById('label').hidden=false;
+				document.getElementById('caja').hidden=false;
+			}
+			function desactivarCaja(){
+				document.getElementById('label').hidden=true;
+				document.getElementById('caja').hidden=true;
+			}
+		</script>
+		
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#table_id').DataTable();
+		});
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#table_id').DataTable();
+		});
+		$
+				.extend(
+						true,
+						$.fn.dataTable.defaults,
+						{
+							"language" : {
+								"decimal" : ",",
+								"thousands" : ".",
+								"info" : "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+								"infoEmpty" : "Mostrando registros del 0 al 0 de un total de 0 registros",
+								"infoPostFix" : "",
+								"infoFiltered" : "(filtrado de un total de _MAX_ registros)",
+								"loadingRecords" : "Cargando...",
+								"lengthMenu" : "Mostrar _MENU_ registros",
+								"paginate" : {
+									"first" : "Primero",
+									"last" : "Último",
+									"next" : "Siguiente",
+									"previous" : "Anterior"
+								},
+								"processing" : "Procesando...",
+								"search" : "Buscar:",
+								"searchPlaceholder" : "Usuario",
+								"zeroRecords" : "No se encontraron resultados",
+								"emptyTable" : "Ningún dato disponible en esta tabla",
+								"aria" : {
+									"sortAscending" : ": Activar para ordenar la columna de manera ascendente",
+									"sortDescending" : ": Activar para ordenar la columna de manera descendente"
+								},
+								//only works for built-in buttons, not for custom buttons
+								"buttons" : {
+									"create" : "Nuevo",
+									"edit" : "Cambiar",
+									"remove" : "Borrar",
+									"copy" : "Copiar",
+									"csv" : "fichero CSV",
+									"excel" : "tabla Excel",
+									"pdf" : "documento PDF",
+									"print" : "Imprimir",
+									"colvis" : "Visibilidad columnas",
+									"collection" : "Colección",
+									"upload" : "Seleccione fichero...."
+								},
+								"select" : {
+									"rows" : {
+										_ : '%d filas seleccionadas',
+										0 : 'clic fila para seleccionar',
+										1 : 'una fila seleccionada'
+									}
+								}
+							}
+						});
+	</script>
+
+
+</body>
+</html>

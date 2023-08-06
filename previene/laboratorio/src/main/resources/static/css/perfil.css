@@ -1,0 +1,117 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  	font-family:'Poppins', sans-serif;
+}
+
+body {
+background-image: radial-gradient(circle at 50% -3.03%, #f9f9f9 0, #f9f9f9 7.14%, #f9f9f9 14.29%, #f9f9f9 21.43%, #f9f9f9 28.57%, #f9f9f9 35.71%, #f9f9f9 42.86%, #f9f9f9 50%, #f9f9f9 57.14%, #f9f9f9 64.29%, #f9f9f9 71.43%, #f9f9f9 78.57%, #f9f9f9 85.71%, #f9f9f9 92.86%, #f9f9f9 100%);
+}
+/* HEADER */
+.container1 {
+  background: #ecf4ff;
+  color: #1c1c1c;
+  margin: 64px auto;
+  box-shadow: 6px 6px 6px #0e1d2f;
+  border-radius: 20px;
+  padding: 64px;
+  max-width: 960px;
+}
+
+.perfil {
+  display: flex;
+  align-items: center;
+}
+
+.perfil-foto {
+  border-radius: 460px;
+  max-height: 160px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: white;
+  
+}
+
+.titulo {
+  margin-left: 16px;
+}
+
+.titulo h1 {
+  font-weight: 700;
+  font-size: 36px;
+}
+
+.titulo h3 {
+  font-weight: 400;
+  font-size: 24px;
+
+
+}
+
+
+.titulo p {
+  color: #be7f93;
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+/* ÍCONES */
+.icones-perfil {
+  margin: 3px;
+  font-size: 24px;
+  text-decoration: none;
+  color: #0084a2;
+  transition: color 0.2s;
+}
+
+.icones-perfil:hover {
+  color: #9d91ab;
+}
+
+/* PROJETOS */
+.projetos {
+  display: flex;
+  flex-direction: column;
+  background: #cad7e6;
+  box-shadow: 2px 2px 4px rgba(16, 16, 16, 0.42);
+  border-radius: 20px;
+  margin: 34px;
+}
+
+.container-projetos {
+  margin-left: 20px;
+  padding: 18px;
+}
+
+.container-projetos h3 {
+  color: #1c1c1c;
+  font-size: 22px;
+  margin-bottom: 15px;
+   	font-family:'Poppins', sans-serif;
+  
+}
+
+.container-projetos p {
+  /*color: #1c1c1c;*/
+  font-size: 18px;
+   	font-family:'Poppins', sans-serif;
+  margin-bottom: 15px;
+}
+
+.container-projetos li {
+  margin-bottom: 10px;
+  list-style: none;
+}
+
+.container-projetos a {
+  font-size: 18px;
+  text-decoration: none;
+  color: #1c1c1c;
+}
+
+.container-projetos a:hover {
+  color: #0084a2;
+}

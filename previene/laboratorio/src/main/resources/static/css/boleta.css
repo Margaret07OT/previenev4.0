@@ -1,0 +1,189 @@
+.table-boleta table {
+          border-collapse: collapse;
+          font-family: "Montserrat" !important;
+          width: 100%;
+          text-align: left;
+          font-size: 11px;
+          color: rgba(0, 0, 0, 0.6);
+          border-bottom: 2px solid #229cbb;
+        }
+        .table-boleta td {
+          padding: 4px;
+        }
+tr {
+  border-top: 0;
+          border-left: 0;
+          border-right: 0;
+          border-bottom: 1px solid #dddddd;
+}
+        .table-boleta .b-botom{
+          border-top: 0;
+          border-left: 0;
+          border-right: 0;
+          border-bottom: 1px solid #dddddd;
+        }
+.boleta-pago__content {
+            width: 595px;
+            margin: 0 auto;
+            border: 1px solid rgba(0, 0, 0, 0.6);
+            padding: 47px 54px 76px 50px;
+            font-family: "Montserrat" !important;
+        }
+        .boleta-pago .logo img {
+            width: 38%;
+        }
+
+        .boleta-pago__header {
+            color: #229cbb;
+            text-align: center;
+            position: relative;
+        }
+
+        .boleta-pago__header .title {
+            font-size: 16px;
+            display: block;
+            border-bottom: 2px solid #229cbb;
+            font-family: "Montserrat" !important;
+        }
+
+        .boleta-pago__header p {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 9px 0 0 0;
+            margin:0;
+            font-family: "Montserrat" !important;
+        }
+
+             .boleta-pago .rombo {
+            text-align: center;
+            color: #229cbb;
+            width: 115px;
+            height: 125px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            position: absolute;
+            right: -40px;
+            top: -20px;
+         
+        }
+
+
+    
+.boleta-pago .rombo .month{
+            font-size: 14x;
+            display: block;
+            line-height: 23px;
+            font-family: "Montserrat" !important;
+        }
+        .boleta-pago .rombo .year {
+            font-size: 18px;
+            font-weight: bold;
+            display: block;
+            line-height: 23px;
+            font-family: "Montserrat" !important;
+        }
+
+
+        .boleta-pago__col {
+            font-family: "Montserrat" !important;
+        }
+
+        .boleta-pago__col:last-child {
+            margin: 0;
+        }
+
+        .boleta-pago__col .title {
+            font-size: 9px;
+            color: #229cbb;
+            text-transform: uppercase;
+            font-family: "Montserrat" !important;
+        }
+
+        .boleta-pago__col .sub {
+            font-size: 14px;
+            font-weight: bold;
+            display: block;
+            color:  #229cbb;
+            text-transform: uppercase;
+            font-family: "Montserrat" !important;
+        }
+
+        .boleta-pago__col .line {
+            width: 24px;
+            border-top: 5px solid #229cbb;
+            border-radius: 5px;
+            margin: 2px 0 12px 0;
+        }
+
+        .boleta-pago .box-date .box-date--text {
+            font-size: 11px;
+            color: rgba(0, 0, 0, 0.6);
+            margin: 0 0 10px 0;
+            font-family: "Montserrat" !important;
+        }
+
+        .boleta-pago .box-date .box-date--text:last-child {
+            margin-bottom: 0;
+        }
+
+        .boleta-pago .box-date .box-date--text span {
+            display: block;
+            font-family: "Montserrat" !important;
+        }
+
+        .boleta-pago .box-date .total-pago {
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        .boleta-pago .box-date .total-pago p {
+            font-size: 11px;
+            text-transform: uppercase;
+            margin: 0;
+            font-family: "Montserrat" !important;
+        }
+
+        .boleta-pago .box-date .total-pago_mun {
+            font-size: 18px;
+            font-family: "Montserrat" !important;
+        }
+        
+        
+       .btn2{
+background-image: radial-gradient(circle at 50% -20.71%, #f1f1e9 0, #ecefe4 7.14%, #e5ecdf 14.29%, #dde8da 21.43%, #d3e4d4 28.57%, #c8dfcf 35.71%, #badbc9 42.86%, #abd5c5 50%, #9bcfc2 57.14%, #8bcac1 64.29%, #7cc5c1 71.43%, #6ec1c3 78.57%, #62bdc6 85.71%, #58b9ca 92.86%, #52b5cd 100%);border: none;
+color: blanco;
+padding: 15px 32px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
+font-size: 10px;
+color: black;
+
+} 
+        
+        
+        
+
+        .boleta-pago .box-date .total-pago_mun span {
+            font-size: 11px;
+            margin-right: 6px;
+            font-family: "Montserrat" !important;
+        }
+
+        .boleta-pago__footer p {
+            text-align: right;
+            font-size: 11px;
+            color: rgba(0, 0, 0, 0.6);
+            font-family: "Montserrat" !important;
+        }
+        .box-date-col .mes{
+            font-size: 11px;
+            color: rgba(0, 0, 0, 0.6);
+            margin: 0 0 10px 0;
+        }
+.box-date-col .mes:last-child{
+      margin:  0;
+}
+        .box-date-col .mes span{
+            margin-left: 13px;
+        }
